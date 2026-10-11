@@ -326,7 +326,7 @@ erDiagram
 
 ## 8. Lộ Trình Triển Khai Chi Tiết (Implementation Roadmap)
 
-- [ ] **Giai đoạn 1: Môi trường & Hạ tầng**
+- [x] **Giai đoạn 1: Môi trường & Hạ tầng**
   - Tạo `docker-compose.yml` gồm: Kafka (KRaft mode), Kafka UI, PostgreSQL, Redis.
   - Cấu hình `@nestjs/microservices` hoặc thư viện `kafkajs`.
 - [ ] **Giai đoạn 2: Domain Logic & GoF Patterns**
