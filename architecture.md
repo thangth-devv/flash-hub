@@ -329,7 +329,7 @@ erDiagram
 - [x] **Giai đoạn 1: Môi trường & Hạ tầng**
   - Tạo `docker-compose.yml` gồm: Kafka (KRaft mode), Kafka UI, PostgreSQL, Redis.
   - Cấu hình `@nestjs/microservices` hoặc thư viện `kafkajs`.
-- [ ] **Giai đoạn 2: Domain Logic & GoF Patterns**
+- [x] **Giai đoạn 2: Domain Logic & GoF Patterns**
   - Xây dựng `OrderModule` với **Chain of Responsibility** (validate checkout) và **Strategy Pattern** (tính discount).
   - Triển khai **State Pattern** cho quản lý trạng thái đơn hàng.
   - Xây dựng **Payment Factory & Adapters** cho các cổng thanh toán.

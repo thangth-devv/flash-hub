@@ -5,6 +5,8 @@ import { createObserveModule } from '@nestjs/observe';
 import configuration from './config/configuration';
 import { KafkaModule } from './common/kafka/kafka.module';
 import { RedisModule } from './common/redis/redis.module';
+import { OrderModule } from './modules/order/order.module';
+import { PaymentModule } from './modules/payment/payment.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { Order } from './modules/order/entities/order.entity';
@@ -51,6 +53,10 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
     // Distributed Infrastructure
     KafkaModule,
     RedisModule,
+
+    // Domain Modules
+    PaymentModule,
+    OrderModule,
 
     // Observability
     ObserveModule.forRoot({

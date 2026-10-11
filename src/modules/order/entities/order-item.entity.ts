@@ -6,7 +6,7 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Order } from './order.entity';
+import type { Order } from './order.entity';
 
 @Entity('order_items')
 export class OrderItem {
@@ -25,11 +25,10 @@ export class OrderItem {
   @Column({ name: 'unit_price', type: 'numeric', precision: 15, scale: 2 })
   unitPrice: number;
 
-  @ManyToOne(() => Order, (order) => order.items, { onDelete: 'CASCADE' })
+  @ManyToOne('Order', 'items', { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'order_id' })
   order: Order;
 
   @CreateDateColumn({ name: 'created_at', type: 'timestamptz' })
   createdAt: Date;
 }
-
