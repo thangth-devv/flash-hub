@@ -1,5 +1,5 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { IPaymentGateway } from '../interfaces/payment-gateway.interface';
+import type { IPaymentGateway } from '../interfaces/payment-gateway.interface';
 import { VNPayAdapter } from '../adapters/vnpay.adapter';
 import { MoMoAdapter } from '../adapters/momo.adapter';
 import { StripeAdapter } from '../adapters/stripe.adapter';
@@ -44,4 +44,3 @@ export class PaymentGatewayFactory {
     return gateway;
   }
 }
-

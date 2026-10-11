@@ -22,6 +22,10 @@ import { FixedAmountDiscountStrategy } from './strategies/discount/fixed-amount-
 import { VipTierDiscountStrategy } from './strategies/discount/vip-tier-discount.strategy';
 import { DiscountStrategyContext } from './strategies/discount/discount-strategy.context';
 
+// Transactional Outbox
+import { OutboxService } from './outbox/outbox.service';
+import { OutboxWorker } from './outbox/outbox.worker';
+
 @Module({
   imports: [
     TypeOrmModule.forFeature([
@@ -50,8 +54,11 @@ import { DiscountStrategyContext } from './strategies/discount/discount-strategy
     // Orchestration & Services
     CheckoutFacade,
     OrderService,
+
+    // Transactional Outbox Worker
+    OutboxService,
+    OutboxWorker,
   ],
-  exports: [OrderService, CheckoutFacade],
+  exports: [OrderService, CheckoutFacade, OutboxService],
 })
 export class OrderModule {}
-

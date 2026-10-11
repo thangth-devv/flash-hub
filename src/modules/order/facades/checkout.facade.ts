@@ -11,6 +11,7 @@ import { Order, OrderStatus } from '../entities/order.entity';
 import { OrderItem } from '../entities/order-item.entity';
 import { OutboxEvent, OutboxStatus } from '../entities/outbox-event.entity';
 import { KAFKA_TOPICS } from '../../../common/constants/kafka.topics';
+import { AuditLog } from '../../../common/decorators/audit-log.decorator';
 
 @Injectable()
 export class CheckoutFacade {
@@ -23,6 +24,7 @@ export class CheckoutFacade {
     private readonly paymentGatewayFactory: PaymentGatewayFactory,
   ) {}
 
+  @AuditLog('ExecuteCheckout')
   async executeCheckout(
     dto: CheckoutDto,
     clientIp?: string,

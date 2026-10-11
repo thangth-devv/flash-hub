@@ -1,17 +1,19 @@
 import { Injectable, Logger } from '@nestjs/common';
-import {
+import type {
   ChargeRequest,
   ChargeResult,
   IPaymentGateway,
   RefundRequest,
   RefundResult,
 } from '../interfaces/payment-gateway.interface';
+import { AuditLog } from '../../../common/decorators/audit-log.decorator';
 
 @Injectable()
 export class CODAdapter implements IPaymentGateway {
   readonly gatewayName = 'COD';
   private readonly logger = new Logger(CODAdapter.name);
 
+  @AuditLog('COD:Charge')
   async charge(request: ChargeRequest): Promise<ChargeResult> {
     this.logger.log(
       `[COD Adapter] Cash-on-delivery registered for order ${request.orderId}, amount: ${request.amount}`,
@@ -26,6 +28,7 @@ export class CODAdapter implements IPaymentGateway {
     };
   }
 
+  @AuditLog('COD:Refund')
   async refund(request: RefundRequest): Promise<RefundResult> {
     this.logger.log(
       `[COD Adapter] Cancelling COD transaction for order ${request.orderId}`,
@@ -37,4 +40,3 @@ export class CODAdapter implements IPaymentGateway {
     };
   }
 }
-

@@ -333,7 +333,7 @@ erDiagram
   - Xây dựng `OrderModule` với **Chain of Responsibility** (validate checkout) và **Strategy Pattern** (tính discount).
   - Triển khai **State Pattern** cho quản lý trạng thái đơn hàng.
   - Xây dựng **Payment Factory & Adapters** cho các cổng thanh toán.
-- [ ] **Giai đoạn 3: Event-Driven & Outbox Pattern**
+- [x] **Giai đoạn 3: Event-Driven & Outbox Pattern**
   - Viết Transactional Outbox lưu DB và Worker bắn event sang Kafka.
   - Xử lý bài toán Idempotency bằng Redis Decorator.
 - [ ] **Giai đoạn 4: Phân Tán & Bù Trừ (Saga Orchestration/Choreography)**

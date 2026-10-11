@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Order, OrderStatus } from '../entities/order.entity';
 import { OrderStateMachine } from '../states/order-state-machine';
+import { AuditLog } from '../../../common/decorators/audit-log.decorator';
 
 @Injectable()
 export class OrderService {
@@ -24,6 +25,7 @@ export class OrderService {
     return order;
   }
 
+  @AuditLog('OrderStateTransition')
   async transitionState(
     orderId: string,
     action: 'reserve' | 'pay' | 'cancel',

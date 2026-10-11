@@ -1,17 +1,19 @@
 import { Injectable, Logger } from '@nestjs/common';
-import {
+import type {
   ChargeRequest,
   ChargeResult,
   IPaymentGateway,
   RefundRequest,
   RefundResult,
 } from '../interfaces/payment-gateway.interface';
+import { AuditLog } from '../../../common/decorators/audit-log.decorator';
 
 @Injectable()
 export class VNPayAdapter implements IPaymentGateway {
   readonly gatewayName = 'VNPAY';
   private readonly logger = new Logger(VNPayAdapter.name);
 
+  @AuditLog('VNPay:Charge')
   async charge(request: ChargeRequest): Promise<ChargeResult> {
     this.logger.log(
       `[VNPay Adapter] Formatting and signing payment URL for order ${request.orderId}, amount: ${request.amount} VND`,
@@ -33,6 +35,7 @@ export class VNPayAdapter implements IPaymentGateway {
     };
   }
 
+  @AuditLog('VNPay:Refund')
   async refund(request: RefundRequest): Promise<RefundResult> {
     this.logger.log(
       `[VNPay Adapter] Requesting refund for order ${request.orderId}, tx: ${request.transactionId}`,
@@ -44,4 +47,3 @@ export class VNPayAdapter implements IPaymentGateway {
     };
   }
 }
-

@@ -1,17 +1,19 @@
 import { Injectable, Logger } from '@nestjs/common';
-import {
+import type {
   ChargeRequest,
   ChargeResult,
   IPaymentGateway,
   RefundRequest,
   RefundResult,
 } from '../interfaces/payment-gateway.interface';
+import { AuditLog } from '../../../common/decorators/audit-log.decorator';
 
 @Injectable()
 export class MoMoAdapter implements IPaymentGateway {
   readonly gatewayName = 'MOMO';
   private readonly logger = new Logger(MoMoAdapter.name);
 
+  @AuditLog('MoMo:Charge')
   async charge(request: ChargeRequest): Promise<ChargeResult> {
     this.logger.log(
       `[MoMo Adapter] Requesting QR payment for order ${request.orderId}, amount: ${request.amount} VND`,
@@ -33,6 +35,7 @@ export class MoMoAdapter implements IPaymentGateway {
     };
   }
 
+  @AuditLog('MoMo:Refund')
   async refund(request: RefundRequest): Promise<RefundResult> {
     this.logger.log(
       `[MoMo Adapter] Executing refund for order ${request.orderId}, tx: ${request.transactionId}`,
@@ -44,4 +47,3 @@ export class MoMoAdapter implements IPaymentGateway {
     };
   }
 }
-

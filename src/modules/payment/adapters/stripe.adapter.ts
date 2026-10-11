@@ -1,17 +1,19 @@
 import { Injectable, Logger } from '@nestjs/common';
-import {
+import type {
   ChargeRequest,
   ChargeResult,
   IPaymentGateway,
   RefundRequest,
   RefundResult,
 } from '../interfaces/payment-gateway.interface';
+import { AuditLog } from '../../../common/decorators/audit-log.decorator';
 
 @Injectable()
 export class StripeAdapter implements IPaymentGateway {
   readonly gatewayName = 'STRIPE';
   private readonly logger = new Logger(StripeAdapter.name);
 
+  @AuditLog('Stripe:Charge')
   async charge(request: ChargeRequest): Promise<ChargeResult> {
     this.logger.log(
       `[Stripe Adapter] Creating PaymentIntent for order ${request.orderId}, amount: ${request.amount} ${request.currency || 'USD'}`,
@@ -31,6 +33,7 @@ export class StripeAdapter implements IPaymentGateway {
     };
   }
 
+  @AuditLog('Stripe:Refund')
   async refund(request: RefundRequest): Promise<RefundResult> {
     this.logger.log(
       `[Stripe Adapter] Creating refund for transaction ${request.transactionId}`,
@@ -42,4 +45,3 @@ export class StripeAdapter implements IPaymentGateway {
     };
   }
 }
-
